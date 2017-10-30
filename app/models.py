@@ -29,7 +29,7 @@ class User(db.Model,UserMixin):
 
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     role = db.relationship('Role', backref=db.backref('user_set', lazy='dynamic'))
-    cards = db.relationship('Card', backref = 'author', lazy = dynamic)
+    cards = db.relationship('Card', backref = 'author', lazy = 'dynamic')
 
     @property
     def password(self):
@@ -85,7 +85,7 @@ class Card(db.Model):
     timestamp = db.Column(db.DateTime, index=True)
     #创建时得到Markdown的HTML代码缓存到数据库这个列中。
     body_html = db.Column(db.Text)
-    author_id = db. Column(db.Integer, db.ForeignKey('users.id'))
+    author_id = db. Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, body):
         self.title = title

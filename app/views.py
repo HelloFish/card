@@ -90,6 +90,7 @@ def test_card():
     return render_template('test_card.html', cards=cards)
 
 @app.route('/show_all', methods=['GET', 'POST'])
+@login_required
 def show_all():
     #不知道为何需要用到request.args
     print(request.args.get("shuffle"))
