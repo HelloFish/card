@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 #User模型继承UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin 
+from flask_login import UserMixin
 from app import db
 #from . import login_manager
 from markdown import markdown
@@ -12,23 +12,24 @@ class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
-    
+
     def __init__(self, name):
         self.name = name
-        
+
     # users = db.relationship('User',backref='role',lazy='dynamic')
 #__repr__ 方法告诉 Python 如何打印这个类的对象,用它来调试。
     def __repr__(self):
         return '<Role %r>' % self.name
-        
+
 class User(db.Model,UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    
+
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     role = db.relationship('Role', backref=db.backref('user_set', lazy='dynamic'))
+    cards = db.relationship('Card', backref = 'author', lazy = dynamic)
 
     @property
     def password(self):
@@ -59,7 +60,7 @@ class User(db.Model,UserMixin):
 
     def __repr__(self):
         return '%s' % self.username
-'''        
+'''
 class Post(db.Model):
     __tablename__ = 'Post'
     id = db.Column(db.Integer, primary_key = True)
@@ -69,12 +70,12 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
-        
+
     def confirm_password(self,password):
         return check_password_hash(self.hash_password,password)
-  '''      
- 
-    
+  '''
+
+
 #创建卡片数据库对象模型
 class Card(db.Model):
     __tablename__ = 'cards'
@@ -84,7 +85,7 @@ class Card(db.Model):
     timestamp = db.Column(db.DateTime, index=True)
     #创建时得到Markdown的HTML代码缓存到数据库这个列中。
     body_html = db.Column(db.Text)
-    # author_id = db. Column(db.Integer, db.ForeignKey('users.id'))
+    author_id = db. Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, title, body):
         self.title = title

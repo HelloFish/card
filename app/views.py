@@ -9,11 +9,11 @@ from flaskext.markdown import Markdown
 import markdown
 
  #回调函数，如果能找到用户，这个函数必须返回用户对象，否则返回None
-from . import loginmanager  
-@loginmanager.user_loader  
-def load_user(id):  
-    return User.query.get(int(id)) 
-    
+from . import loginmanager
+@loginmanager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
 # @app.route('/')
 # @app.route('/index')
 # @login_required
@@ -22,16 +22,16 @@ def load_user(id):
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    form=NameForm()  
-    if form.validate_on_submit():  
-        user=User.query.filter_by(username=form.name.data).first()  
-        if user is not None and user.confirm_password(form.password.data): 
-            login_user(user,form.remember_me.data)  
+    form=NameForm()
+    if form.validate_on_submit():
+        user=User.query.filter_by(username=form.name.data).first()
+        if user is not None and user.confirm_password(form.password.data):
+            login_user(user,form.remember_me.data)
             return redirect(request.args.get('next') or url_for('card'))
         flash('Invalid username or password.')
-             
+
     return render_template('login.html',form=form)
-    
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -39,7 +39,7 @@ def logout():
     flash('You have been logged out.')
     return redirect(url_for('login'))
     # return render_template('index.html')
-    
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -105,6 +105,3 @@ def show_all():
         cards = Card.query.order_by(Card.timestamp.desc()).all()
 
     return render_template('show_all.html', cards =cards)
-
-   
-
