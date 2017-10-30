@@ -62,7 +62,7 @@
                            <h3>{{card.title}}</h3>
                            <p>{{ card.body }}</p>
                         </div>
-                      <p><class="card-footer text-center">{{ moment(card.timestamp).fromNow() }}</p>
+                      <p><class="card-footer text-center">{{ moment(card.timestamp).fromNow() }}{{card.author}}</p>
                    </div>
                    {% endfor %}
 

@@ -59,12 +59,17 @@ def register():
 @login_required
 def card():
     form = CardForm()
+    user = current_user._get_current_object()
+
     if form.validate_on_submit():
         card = Card(form.title.data, form.body.data)
+        card.author = user
+        print(card.author)
+
         db.session.add(card)
         db.session.commit()
 #         return redirect(url_for('index'))
-    cards = Card.query.order_by(Card.timestamp.desc()).all()
+    cards = Card.query.filter_by(author = user).order_by(Card.timestamp.desc()).limit(8)
     return render_template('index.html', form=form, cards=cards)
 
 
@@ -96,13 +101,15 @@ def show_all():
     print(request.args.get("shuffle"))
     print(request)
     print(request.args)
+    user = current_user._get_current_object()
+    print(user.username)
 
     if request.args.get("shuffle") == "乱序拼接":
         #将数据库查询结果乱序
 #         cards = Card.query.order_by(func.random()).all()
-           cards = Card.query.order_by(func.random()).limit(6)
+        cards = Card.query.filter_by(author = user).order_by(func.random()).limit(6)
 
     else:
-        cards = Card.query.order_by(Card.timestamp.desc()).all()
+        cards = Card.query.filter_by(author = user).order_by(Card.timestamp.desc()).all()
 
     return render_template('show_all.html', cards =cards)
