@@ -28,3 +28,4 @@ pagedown = PageDown(app)
 Markdown(app)
 moment = Moment(app)
 from app import views, models
+db.create_all()
