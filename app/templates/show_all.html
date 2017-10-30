@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block title %}FlaskCards{% endblock %}
+
+{% block page_content %}
+<div class="page-header text-center">
+    <h2>远距联想，创造新作品</h2>
+
+    <form>
+
+      <input type="submit" name="shuffle" value = "乱序拼接" class="btn btn-primary btn-lg margin-top:2rem" ></input>
+    </form>
+
+</div>
+<div class="container-fluid" style="margin-top:5rem;">
+
+    <div class="card-columns">
+
+        <!-- Card 4 -->
+        {% for card in cards %}
+        <div class="card ">
+            <div class="card-header  text-center"><h3>{{card.title}}</h3></div>
+            <div class="card-body">
+                <p class="card-text">{{ card.body_html | markdown }}</p>
+            </div>
+            <div class="card-footer"><small class="text-muted">{{ moment(card.timestamp).fromNow()}}</small></div>
+        </div>
+        {% endfor %}
+
+        <!-- 卡片可增加图片>
+        <!-- {% for card in cards %}
+        <div class="card">
+          <img class="card-img-top img-fluid" src="/static/desert-sky-1537792.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{card.title}}</h4>
+         <p class="card-text">{{ card.body }}</p>
+         <p class="card-text"><small class="text-muted">{{ moment(card.timestamp).fromNow()}}</small></p>
+       </div>
+     </div>
+      {% endfor %} -->
+
+
+    </div>
+</div>
+{% endblock %}
