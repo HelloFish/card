@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block  title %} Flasky {% endblock %}
+{% block  title %} 卡片屋 {% endblock %}
 
 {% block page_content %}
 <div class="page-header text-center">
@@ -23,7 +23,7 @@
 
     <div class="card-columns">
         <!-- Card 4 -->
-        {% for card in cards %}
+        <!-- {% for card in cards %}
         <div class="card ">
             <div class="card-header  text-center"><h3>{{card.title}}</h3></div>
             <div class="card-body">
@@ -31,7 +31,7 @@
             </div>
             <div class="card-footer"><small class="text-muted">{{ moment(card.timestamp).fromNow()}}</small></div>
         </div>
-        {% endfor %}
+        {% endfor %} -->
 
         <!-- 卡片可增加图片> -->
        {% for card in cards %}
