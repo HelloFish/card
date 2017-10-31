@@ -54,19 +54,7 @@
 
            <div class="card-columns">
 
-               <!-- Card 1 -->
-
-                   {% for card in cards %}
-                   <div class="card text-center">
-                       <div class="card-content">
-                           <h3>{{card.title}}</h3>
-                           <p>{{ card.body }}</p>
-                        </div>
-                      <p><class="card-footer text-center">{{ moment(card.timestamp).fromNow() }}</p>
-                   </div>
-                   {% endfor %}
-
-               <!-- Card 4 -->
+                         <!-- Card 4 -->
                {% for card in cards %}
                <div class="card text-center">
                    <div class="card-header"><h3>{{card.title}}</h3></div>
@@ -77,8 +65,8 @@
                </div>
                {% endfor %}
 
-               <!-- 卡片可增加图片>
-               <!-- {% for card in cards %}
+               <!-- 卡片可增加图片>-->
+               {% for card in cards %}
                <div class="card">
                  <img class="card-img-top img-fluid" src="/static/desert-sky-1537792.jpg" alt="Card image cap">
                  <div class="card-body">
@@ -87,7 +75,7 @@
                 <p class="card-text"><small class="text-muted">{{ moment(card.timestamp).fromNow()}}</small></p>
               </div>
             </div>
-             {% endfor %} -->
+             {% endfor %}
 
 
            </div>
