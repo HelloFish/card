@@ -35,7 +35,7 @@ class RegistrationForm(Form):
 
     #创建卡片写作表单
 class CardForm(Form):
-    title = TextAreaField("卡片标题", validators=[Required(), Length(1, 10)])
+    title = TextAreaField("卡片标题", validators=[Required(), Length(1, 20)])
     #length为汉字+标点+markdown的符号+数字等不超过420
     body = PageDownField('卡片内容，支持Markdown', validators=[Length(1, 420)])
     submit = SubmitField('Submit')
